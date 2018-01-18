@@ -18,10 +18,6 @@ spring:
 errors:
   config:
     general:
-      'ES01':
-        errorCode: RESOURCE_NOT_FOUND
-        errorMessage: Recurso no localizado
-        httpCode: 404
       EMPTY:
         errorCode: EMPTY_COLLECTION
         errorMessage: No hay información a mostrar

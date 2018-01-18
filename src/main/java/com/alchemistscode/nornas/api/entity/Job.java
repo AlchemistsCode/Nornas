@@ -34,8 +34,8 @@ public class Job{
     private String descripcion;
 
     @Basic
-    @Column(name = "CRON_EXPRESION")
-    private String cronExpresion;
+    @Column(name = "CRON_EXPRESSION")
+    private String cronExpression;
 
     @Basic
     @Column(name = "PARAMETERS")

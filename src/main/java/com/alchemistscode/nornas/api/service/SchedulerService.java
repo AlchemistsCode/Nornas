@@ -5,5 +5,10 @@ import com.alchemistscode.nornas.api.entity.Scheduler;
 import java.util.List;
 
 public interface SchedulerService{
-    List<Scheduler> allScheduler();
+    List<Scheduler> findAll();
+    List<Scheduler> findActive();
+    Scheduler find(Integer id);
+    void register(Scheduler scheduler);
+    void update(Scheduler scheduler);
+    void delete(Integer id);
 }

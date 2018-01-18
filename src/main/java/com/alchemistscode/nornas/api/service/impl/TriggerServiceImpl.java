@@ -21,16 +21,57 @@ public class TriggerServiceImpl implements TriggerService{
     private ExceptionBuilder exBuilder;
 
     @Override
-    public List<Trigger> allTrigger(){
+    public List<Trigger> findAll(){
         List<Trigger> response = new ArrayList<Trigger>();
+
         for (Trigger trigger : repository.findAll()) {
             response.add(trigger);
         }
+
         if(response.size() == 0){
             throw exBuilder.getBuilder("general").
                     codidgoError("EMPTY").mensaje("No hay información a mostrar").build();
         }
+        return response;
+    }
 
-        return  response;
+    @Override
+    public List<Trigger> findActive(){
+        List<Trigger> response = new ArrayList<Trigger>();
+
+        for (Trigger trigger : repository.findActive()) {
+            response.add(trigger);
+        }
+
+        if(response.size() == 0){
+            throw exBuilder.getBuilder("general").
+                    codidgoError("EMPTY").mensaje("No hay información a mostrar").build();
+        }
+        return response;
+    }
+
+    @Override
+    public Trigger find(Integer id){
+        Trigger response = repository.findOne(id);
+        if(response == null){
+            throw exBuilder.getBuilder("general").
+                    codidgoError("EMPTY").mensaje("No hay información a mostrar").build();
+        }
+        return response;
+    }
+
+    @Override
+    public void register(Trigger trigger){
+        repository.save(trigger);
+    }
+
+    @Override
+    public void update(Trigger trigger){
+        repository.save(trigger);
+    }
+
+    @Override
+    public void delete(Integer id){
+        repository.delete(id);
     }
 }

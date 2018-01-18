@@ -20,9 +20,6 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
     @Autowired
     private ErrorProperties errorProperties;
 
-
-
-
     @ExceptionHandler(AlchemyNornasException.class)
     protected ResponseEntity<ApiError> handleTelcelException(AlchemyNornasException ex) {
         return new ResponseEntity<>(
@@ -57,6 +54,4 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
         apiError.setOriginalErrorMessage(ex.getMessage());
         return apiError;
     }
-
-
 }

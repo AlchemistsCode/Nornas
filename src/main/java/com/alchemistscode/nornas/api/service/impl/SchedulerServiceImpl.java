@@ -21,7 +21,7 @@ public class SchedulerServiceImpl implements SchedulerService{
     private ExceptionBuilder exBuilder;
 
     @Override
-    public List<Scheduler> allScheduler(){
+    public List<Scheduler> findAll(){
         List<Scheduler> response = new ArrayList<Scheduler>();
 
         for (Scheduler scheduler : repository.findAll()) {
@@ -33,5 +33,45 @@ public class SchedulerServiceImpl implements SchedulerService{
                     codidgoError("EMPTY").mensaje("No hay información a mostrar").build();
         }
         return response;
+    }
+
+    @Override
+    public List<Scheduler> findActive(){
+        List<Scheduler> response = new ArrayList<Scheduler>();
+
+        for (Scheduler scheduler : repository.findActive()) {
+            response.add(scheduler);
+        }
+
+        if(response.size() == 0){
+            throw exBuilder.getBuilder("general").
+                    codidgoError("EMPTY").mensaje("No hay información a mostrar").build();
+        }
+        return response;
+    }
+
+    @Override
+    public Scheduler find(Integer id){
+        Scheduler response = repository.findOne(id);
+        if(response == null){
+            throw exBuilder.getBuilder("general").
+                    codidgoError("EMPTY").mensaje("No hay información a mostrar").build();
+        }
+        return response;
+    }
+
+    @Override
+    public void register(Scheduler scheduler){
+        repository.save(scheduler);
+    }
+
+    @Override
+    public void update(Scheduler scheduler){
+        repository.save(scheduler);
+    }
+
+    @Override
+    public void delete(Integer id){
+        repository.delete(id);
     }
 }
