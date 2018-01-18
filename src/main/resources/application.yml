@@ -1,0 +1,32 @@
+#Context web API
+server:
+  port: 8085
+  context-path: /nornas-api
+
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/alchemistscodev
+    username: developer
+  jpa:
+      show-sql: true
+      properties:
+        properties:
+          format_sql: true
+      hibernate:
+        naming:
+          physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+errors:
+  config:
+    general:
+      'ES01':
+        errorCode: RESOURCE_NOT_FOUND
+        errorMessage: Recurso no localizado
+        httpCode: 404
+      EMPTY:
+        errorCode: EMPTY_COLLECTION
+        errorMessage: No hay información a mostrar
+        httpCode: 404
+      default:
+        errorCode: INTERNAL_SERVER_ERROR
+        errorMessage: Internal server error
+        httpCode: 500
