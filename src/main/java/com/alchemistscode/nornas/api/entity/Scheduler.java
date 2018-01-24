@@ -12,7 +12,10 @@ import lombok.Data;
 
 @Entity
 @Data
-@Table(name = "ALCHEMY.CXT_SCHEDULERS")
+@Table(
+        name = "CXT_SCHEDULERS",
+        schema = "ALCHEMY"
+)
 public class Scheduler {
     @Id
     @Column(name = "CXI_SCHEDULER")

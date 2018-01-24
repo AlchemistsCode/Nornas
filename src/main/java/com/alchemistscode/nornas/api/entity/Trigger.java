@@ -14,7 +14,10 @@ import lombok.Data;
 
 @Entity
 @Data
-@Table(name = "ALCHEMY.CXT_TRIGGERS")
+@Table(
+        name = "CXT_TRIGGERS",
+        schema = "ALCHEMY"
+)
 public class Trigger{
     @Id
     @Column(name = "CXI_TRIGGER")

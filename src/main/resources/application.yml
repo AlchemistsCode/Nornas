@@ -26,3 +26,6 @@ errors:
         errorCode: INTERNAL_SERVER_ERROR
         errorMessage: Internal server error
         httpCode: 500
+flyway:
+  enabled: true
+  baseline-on-migrate: true

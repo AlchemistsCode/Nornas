@@ -14,7 +14,10 @@ import lombok.Data;
 
 @Entity
 @Data
-@Table(name = "alchemy.CXT_JOBS")
+@Table(
+        name = "CXT_JOBS",
+        schema = "ALCHEMY"
+)
 public class Job{
     @Id
     @Column(name = "CXI_JOB")
