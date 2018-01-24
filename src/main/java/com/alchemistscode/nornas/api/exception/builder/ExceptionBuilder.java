@@ -65,7 +65,7 @@ public class ExceptionBuilder {
         }
 
         public Builder mensaje(String mensaje) {
-            this.mensaje = mensaje;
+            this.originalErrorMessage = mensaje;
             return this;
         }
 

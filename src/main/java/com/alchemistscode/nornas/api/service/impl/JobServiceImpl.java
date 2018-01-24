@@ -22,11 +22,7 @@ public class JobServiceImpl implements JobService{
 
     @Override
     public List<Job> findAll(){
-        List<Job> response = new ArrayList<Job>();
-
-        for (Job Job : repository.findAll()) {
-            response.add(Job);
-        }
+        List<Job> response = (List<Job>) repository.findAll();
 
         if(response.size() == 0){
             throw exBuilder.getBuilder("general").
@@ -37,16 +33,24 @@ public class JobServiceImpl implements JobService{
 
     @Override
     public List<Job> findActive(){
-        List<Job> response = new ArrayList<Job>();
-
-        for (Job Job : repository.findActive()) {
-            response.add(Job);
-        }
+        List<Job> response = (List<Job>) repository.findActive();
 
         if(response.size() == 0){
             throw exBuilder.getBuilder("general").
                     codidgoError("EMPTY").mensaje("No hay información a mostrar").build();
         }
+        return response;
+    }
+
+    @Override
+    public List<Job> findByTrigger(Integer trigger){
+        List<Job> response = repository.findByTrigger(trigger);
+
+        if(response.size() == 0){
+            throw exBuilder.getBuilder("general").
+                    codidgoError("EMPTY").mensaje("No hay información a mostrar").build();
+        }
+
         return response;
     }
 

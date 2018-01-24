@@ -31,9 +31,14 @@ public class TriggerController{
         return service.findActive();
     }
 
-    @GetMapping("{id}")
+    @GetMapping("/{id}")
     public Trigger findTrigger(@PathVariable Integer id){
         return service.find(id);
+    }
+
+    @GetMapping("/scheduler/{scheduler}")
+    public List<Trigger> findByScheduler(@PathVariable Integer scheduler){
+        return service.findByScheduler(scheduler);
     }
 
     @PutMapping("")
@@ -46,7 +51,7 @@ public class TriggerController{
         service.update(trigger);
     }
 
-    @DeleteMapping("{id}")
+    @DeleteMapping("/{id}")
     public void TriggerDelete(@PathVariable Integer id){
         service.delete(id);
     }

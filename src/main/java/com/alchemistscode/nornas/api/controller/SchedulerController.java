@@ -31,7 +31,7 @@ public class SchedulerController{
         return service.findActive();
     }
 
-    @GetMapping("{id}")
+    @GetMapping("/{id}")
     public Scheduler findScheduler(@PathVariable Integer id){
         return service.find(id);
     }
@@ -46,7 +46,7 @@ public class SchedulerController{
         service.update(scheduler);
     }
 
-    @DeleteMapping("{id}")
+    @DeleteMapping("/{id}")
     public void schedulerDelete(@PathVariable Integer id){
         service.delete(id);
     }

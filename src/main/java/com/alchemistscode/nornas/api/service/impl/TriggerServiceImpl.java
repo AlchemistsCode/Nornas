@@ -22,11 +22,7 @@ public class TriggerServiceImpl implements TriggerService{
 
     @Override
     public List<Trigger> findAll(){
-        List<Trigger> response = new ArrayList<Trigger>();
-
-        for (Trigger trigger : repository.findAll()) {
-            response.add(trigger);
-        }
+        List<Trigger> response = (List<Trigger>) repository.findAll();
 
         if(response.size() == 0){
             throw exBuilder.getBuilder("general").
@@ -37,11 +33,7 @@ public class TriggerServiceImpl implements TriggerService{
 
     @Override
     public List<Trigger> findActive(){
-        List<Trigger> response = new ArrayList<Trigger>();
-
-        for (Trigger trigger : repository.findActive()) {
-            response.add(trigger);
-        }
+        List<Trigger> response = (List<Trigger>) repository.findActive();
 
         if(response.size() == 0){
             throw exBuilder.getBuilder("general").
@@ -54,6 +46,17 @@ public class TriggerServiceImpl implements TriggerService{
     public Trigger find(Integer id){
         Trigger response = repository.findOne(id);
         if(response == null){
+            throw exBuilder.getBuilder("general").
+                    codidgoError("EMPTY").mensaje("No hay información a mostrar").build();
+        }
+        return response;
+    }
+
+    @Override
+    public List<Trigger> findByScheduler(Integer scheduler){
+        List<Trigger> response = (List<Trigger>) repository.findByScheduler(scheduler);
+
+        if(response.size() == 0){
             throw exBuilder.getBuilder("general").
                     codidgoError("EMPTY").mensaje("No hay información a mostrar").build();
         }

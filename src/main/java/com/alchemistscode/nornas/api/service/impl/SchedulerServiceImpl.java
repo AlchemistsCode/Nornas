@@ -22,11 +22,7 @@ public class SchedulerServiceImpl implements SchedulerService{
 
     @Override
     public List<Scheduler> findAll(){
-        List<Scheduler> response = new ArrayList<Scheduler>();
-
-        for (Scheduler scheduler : repository.findAll()) {
-            response.add(scheduler);
-        }
+        List<Scheduler> response = (List<Scheduler>)repository.findAll();
 
         if(response.size() == 0){
             throw exBuilder.getBuilder("general").
@@ -37,11 +33,7 @@ public class SchedulerServiceImpl implements SchedulerService{
 
     @Override
     public List<Scheduler> findActive(){
-        List<Scheduler> response = new ArrayList<Scheduler>();
-
-        for (Scheduler scheduler : repository.findActive()) {
-            response.add(scheduler);
-        }
+        List<Scheduler> response = (List<Scheduler>) repository.findActive();
 
         if(response.size() == 0){
             throw exBuilder.getBuilder("general").

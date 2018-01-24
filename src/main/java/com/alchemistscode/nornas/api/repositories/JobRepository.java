@@ -6,10 +6,14 @@ import java.util.List;
 
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 
 public interface JobRepository extends
         PagingAndSortingRepository <Job , Integer>{
 
     @Query( value = "SELECT j FROM Job j WHERE j.status = true")
-    public List<Job> findActive(); }
+    public List<Job> findActive();
+
+    @Query( value = "SELECT j FROM Job j WHERE j.trigger = :trigger")
+    public List<Job> findByTrigger(@Param("trigger") Integer trigger);
+}

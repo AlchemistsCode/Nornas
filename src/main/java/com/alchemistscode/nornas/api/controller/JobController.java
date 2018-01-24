@@ -31,9 +31,14 @@ public class JobController{
         return service.findActive();
     }
 
-    @GetMapping("{id}")
+    @GetMapping("/{id}")
     public Job findJob(@PathVariable Integer id){
         return service.find(id);
+    }
+
+    @GetMapping("/trigger/{trigger}")
+    public List<Job> findByTrigger(@PathVariable Integer trigger){
+        return service.findByTrigger(trigger);
     }
 
     @PutMapping("")
@@ -46,7 +51,7 @@ public class JobController{
         service.update(job);
     }
 
-    @DeleteMapping("{id}")
+    @DeleteMapping("/{id}")
     public void JobDelete(@PathVariable Integer id){
         service.delete(id);
     }

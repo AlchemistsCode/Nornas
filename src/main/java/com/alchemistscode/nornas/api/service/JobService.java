@@ -7,6 +7,7 @@ import java.util.List;
 public interface JobService{
     List<Job> findAll();
     List<Job> findActive();
+    List<Job> findByTrigger(Integer trigger);
     Job find(Integer id);
     void register(Job job);
     void update(Job job);
