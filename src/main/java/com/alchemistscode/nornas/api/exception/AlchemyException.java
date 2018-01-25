@@ -5,14 +5,14 @@ import com.alchemistscode.nornas.api.properties.ErrorProperties.Error;
 /**
  *
  */
-public class AlchemyNornasException extends RuntimeException {
+public class AlchemyException extends RuntimeException {
 
     private final Error error;
     private final String mensajeOriginal;
 
 
-    public AlchemyNornasException(String mensaje, Error error, Throwable cause,
-                                String mensajeOriginal) {
+    public AlchemyException(String mensaje, Error error, Throwable cause,
+                            String mensajeOriginal) {
         super(mensaje, cause);
         this.error = error;
         this.mensajeOriginal = mensajeOriginal;

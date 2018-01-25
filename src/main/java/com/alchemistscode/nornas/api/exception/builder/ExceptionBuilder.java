@@ -1,6 +1,6 @@
 package com.alchemistscode.nornas.api.exception.builder;
 
-import com.alchemistscode.nornas.api.exception.AlchemyNornasException;
+import com.alchemistscode.nornas.api.exception.AlchemyException;
 import com.alchemistscode.nornas.api.properties.ErrorProperties;
 import com.alchemistscode.nornas.api.properties.ErrorProperties.Error;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,7 +36,7 @@ public class ExceptionBuilder {
             this.servicio = servicio;
         }
 
-        public AlchemyNornasException build() {
+        public AlchemyException build() {
             Error error;
             if (servicio != null) {
                 error = errorProperties.getErrorConfig(servicio, codigoError);
@@ -47,7 +47,7 @@ public class ExceptionBuilder {
                 error.setHttpCode(200);
             }
 
-            return new AlchemyNornasException(mensaje, error, e, getMensageErrorOrginal());
+            return new AlchemyException(mensaje, error, e, getMensageErrorOrginal());
         }
 
         private String getMensageErrorOrginal() {
