@@ -25,8 +25,8 @@ public class JobServiceImpl implements JobService{
         List<Job> response = (List<Job>) repository.findAll();
 
         if(response.size() == 0){
-            throw exBuilder.getBuilder("general").
-                    codidgoError("EMPTY").mensaje("No hay información a mostrar").build();
+            throw exBuilder.getBuilder().
+                    errorCode("EMPTY").message("No hay información a mostrar").build();
         }
         return response;
     }
@@ -36,8 +36,8 @@ public class JobServiceImpl implements JobService{
         List<Job> response = (List<Job>) repository.findActive();
 
         if(response.size() == 0){
-            throw exBuilder.getBuilder("general").
-                    codidgoError("EMPTY").mensaje("No hay información a mostrar").build();
+            throw exBuilder.getBuilder().
+                    errorCode("EMPTY").message("No hay información a mostrar").build();
         }
         return response;
     }
@@ -47,8 +47,8 @@ public class JobServiceImpl implements JobService{
         List<Job> response = repository.findByTrigger(trigger);
 
         if(response.size() == 0){
-            throw exBuilder.getBuilder("general").
-                    codidgoError("EMPTY").mensaje("No hay información a mostrar").build();
+            throw exBuilder.getBuilder().
+                    errorCode("EMPTY").message("No hay información a mostrar").build();
         }
 
         return response;
@@ -58,8 +58,8 @@ public class JobServiceImpl implements JobService{
     public Job find(Integer id){
         Job response = repository.findOne(id);
         if(response == null){
-            throw exBuilder.getBuilder("general").
-                    codidgoError("EMPTY").mensaje("No hay información a mostrar").build();
+            throw exBuilder.getBuilder().
+                    errorCode("EMPTY").message("No hay información a mostrar").build();
         }
         return response;
     }

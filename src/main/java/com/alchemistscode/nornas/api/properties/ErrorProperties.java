@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
+import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
@@ -27,33 +28,10 @@ public class ErrorProperties{
         }
     }
 
+    @Data
     public static class Error implements Serializable{
         private String errorCode;
         private String errorMessage;
         private Integer httpCode = 500;
-
-        public String getErrorCode() {
-            return errorCode;
-        }
-
-        public void setErrorCode(String errorCode) {
-            this.errorCode = errorCode;
-        }
-
-        public String getErrorMessage() {
-            return errorMessage;
-        }
-
-        public void setErrorMessage(String errorMessage) {
-            this.errorMessage = errorMessage;
-        }
-
-        public Integer getHttpCode() {
-            return httpCode;
-        }
-
-        public void setHttpCode(Integer httpCode) {
-            this.httpCode = httpCode;
-        }
     }
 }

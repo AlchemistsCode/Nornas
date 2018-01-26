@@ -11,9 +11,8 @@ public class AlchemyException extends RuntimeException {
     private final String mensajeOriginal;
 
 
-    public AlchemyException(String mensaje, Error error, Throwable cause,
-                            String mensajeOriginal) {
-        super(mensaje, cause);
+    public AlchemyException(Error error, Throwable cause, String mensajeOriginal) {
+        super(error.getErrorMessage(), cause);
         this.error = error;
         this.mensajeOriginal = mensajeOriginal;
     }

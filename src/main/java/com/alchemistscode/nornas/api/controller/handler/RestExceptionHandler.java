@@ -21,31 +21,24 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(AlchemyException.class)
     protected ResponseEntity<ApiError> handleAlchemistsException(AlchemyException exception){
-        return new ResponseEntity<ApiError>(generedApiErrorFromApiException(exception),
-                HttpStatus.valueOf(exception.getError().getHttpCode()));
+        return new ResponseEntity<ApiError>(generateApiErrorFromAlchemyException(exception),
+                HttpStatus.valueOf(exception.getError().getHttpCode()) );
     }
     @ExceptionHandler(Throwable.class)
-    protected ResponseEntity<ApiError> handleException(Throwable ex) {
-        ApiError apiError = generaApiErrorFromException(ex);
-        return new ResponseEntity<>(
-                apiError,
-                HttpStatus.valueOf(errorProperties.getGeneral().get("default").getHttpCode())
-        );
+    protected ResponseEntity<ApiError> handleException(Throwable exception) {
+        return new ResponseEntity<>(generateApiErrorFromException(exception),
+                HttpStatus.valueOf(errorProperties.getGeneral().get("default").getHttpCode()) );
     }
 
-    private ApiError generedApiErrorFromApiException(AlchemyException exception){
-        ApiError apiError = new ApiError();
-        apiError.setErrorCode(exception.getError().getErrorCode());
-        apiError.setErrorMessage(exception.getError().getErrorMessage());
-        apiError.setErrorOriginMessaage(exception.getMensajeOriginal());
-        return apiError;
+    private ApiError generateApiErrorFromAlchemyException(AlchemyException exception){
+        return new ApiError(exception.getError().getErrorCode(),
+                exception.getError().getErrorMessage(),
+                exception.getMensajeOriginal() );
     }
-    private ApiError generaApiErrorFromException(Throwable ex) {
-        ApiError apiError = new ApiError();
+    private ApiError generateApiErrorFromException(Throwable ex) {
         Error error = errorProperties.getGeneral().get("default");
-        apiError.setErrorMessage(error.getErrorMessage());
-        apiError.setErrorCode(error.getErrorCode());
-        apiError.setErrorOriginMessaage(ex.getMessage());
-        return apiError;
+        return new ApiError( error.getErrorCode(),
+                error.getErrorMessage(),
+                ex.getMessage() );
     }
 }

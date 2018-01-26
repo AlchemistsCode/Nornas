@@ -15,70 +15,58 @@ public class ExceptionBuilder {
     @Autowired
     private ErrorProperties errorProperties;
 
-    public Builder getBuilder(String servicio) {
-        return new Builder(errorProperties, servicio);
+    private static final String GENERAL = "general";
+    private static final String CODE_DEFAULT = "default";
+
+    public Builder getBuilder(){
+        return new Builder(errorProperties,GENERAL);
     }
 
-    public Builder getBuilder() {
-        return new Builder(errorProperties, null);
-    }
-
-    public static class Builder {
+    public static class Builder{
         private final ErrorProperties errorProperties;
-        private Exception e;
-        private String originalErrorMessage;
-        private String codigoError;
-        private String mensaje;
-        private String servicio;
+        private Exception exception;
+        private String messageOrigin;
+        private String errorCode;
+        private String service;
 
-        private Builder(ErrorProperties errorProperties, String servicio) {
+        public Builder(ErrorProperties errorProperties, String service){
             this.errorProperties = errorProperties;
-            this.servicio = servicio;
+            this.service = service;
         }
 
-        public AlchemyException build() {
-            Error error;
-            if (servicio != null) {
-                error = errorProperties.getErrorConfig(servicio, codigoError);
-            } else {
-                error = new Error();
-                error.setErrorMessage(mensaje);
-                error.setErrorCode(codigoError);
-                error.setHttpCode(200);
+        public AlchemyException build(){
+            Error error = (service != null)
+                    ? errorProperties.getErrorConfig(service, errorCode)
+                    : errorProperties.getErrorConfig(service, CODE_DEFAULT);
+
+            return new AlchemyException(error, exception, getMessageOrigin());
+        }
+
+        private String getMessageOrigin(){
+            if (messageOrigin != null && !messageOrigin.isEmpty()){
+                return errorCode != null && !errorCode.isEmpty()
+                        ? errorCode + ":" + messageOrigin
+                        : messageOrigin;
             }
-
-            return new AlchemyException(mensaje, error, e, getMensageErrorOrginal());
+            return (errorCode!= null && !errorCode.isEmpty()) ? errorCode : null ;
         }
 
-        private String getMensageErrorOrginal() {
-            if (originalErrorMessage != null) {
-                if (codigoError != null) {
-                    return codigoError + ":" + originalErrorMessage;
-                } else {
-                    return originalErrorMessage;
-                }
-            } else if (codigoError != null) {
-                return codigoError;
-            } else {
-                return null;
-            }
-        }
-
-        public Builder mensaje(String mensaje) {
-            this.originalErrorMessage = mensaje;
+        public Builder message(String errorMessage){
+            this.messageOrigin = errorMessage;
             return this;
         }
 
-        public Builder codidgoError(String codigoError) {
-            this.codigoError = codigoError;
+        public Builder errorCode(String errorCode){
+            this.errorCode = errorCode;
             return this;
         }
 
-        public Builder exception(Exception e) {
-            this.originalErrorMessage = e.getMessage()!=null?e.getMessage():e.toString();
-            this.e = e;
+        public Builder exception(Exception exception){
+            this.messageOrigin = !exception.getMessage().isEmpty()
+                    ? exception.getMessage()
+                    : exception.toString() ;
+            this.exception = exception;
             return this;
         }
-
     }
 }
