@@ -1,7 +1,7 @@
 #Context web API
 server:
   port: 8085
-  context-path: /nornas-api
+  context-path: /nornas
 
 spring:
   datasource:
@@ -15,6 +15,12 @@ spring:
       hibernate:
         naming:
           physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+  mvc:
+      favicon:
+        enabled: false
+      view:
+        prefix: /WEB-INF/views/
+        suffix: .jsp
 errors:
   config:
     general:
@@ -26,6 +32,3 @@ errors:
         errorCode: INTERNAL_SERVER_ERROR
         errorMessage: Internal server error
         httpCode: 500
-flyway:
-  enabled: true
-  baseline-on-migrate: true

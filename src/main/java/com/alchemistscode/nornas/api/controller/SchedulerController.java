@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/scheduler")
+@RequestMapping("/api/scheduler")
 public class SchedulerController{
     @Autowired
     private SchedulerService service;
